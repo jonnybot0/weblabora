@@ -28,7 +28,7 @@ public class ClayMound extends Building {
 		Player player = board.getPlayer(board.getActivePlayer());
 		Wheel wheel = board.getWheel();
 		Token token = input.isWithJoker()?wheel.getJoker():wheel.getClay();
-		player.addClay(token.take());
+		player.addClay(token.take(wheel));
 	}
 	
 	@Override

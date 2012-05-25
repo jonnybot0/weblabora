@@ -36,7 +36,7 @@ public class ShippingCompany extends BuildingDoubleUsage {
 		
 		UsageParamSingle output = input.getSecondary();
 		
-		int amount = board.getWheel().getJoker().take();
+		int amount = board.getWheel().getJoker().take(board.getWheel());
 		if(output.getMeat() == 1) {
 			player.addMeat(amount);
 		}

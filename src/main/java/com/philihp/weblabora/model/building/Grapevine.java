@@ -28,6 +28,6 @@ public class Grapevine extends Building {
 		Player player = board.getPlayer(board.getActivePlayer());
 		Wheel wheel = board.getWheel();
 		Token token = input.isWithJoker()?wheel.getJoker():wheel.getGrape();
-		player.addGrapes(token.take());
+		player.addGrapes(token.take(wheel));
 	}
 }

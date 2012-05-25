@@ -2,9 +2,9 @@ package com.philihp.weblabora.model;
 
 import static com.philihp.weblabora.model.Wheel.Position.*;
 
-public class Wheel {
+public class Wheel implements Cloneable {
 	
-	protected Board game;
+	protected Board board;
 	
 	protected int[] armValues = {0, 2, 3, 4, 5, 6, 6, 7, 7, 8, 8, 9, 10};  
 	
@@ -19,34 +19,34 @@ public class Wheel {
 	}
 	
 
-	protected Token grain = new Token(this);
+	protected Token grain = new Token();
 
-	protected Token peat = new Token(this);
+	protected Token peat = new Token();
 	
-	protected Token sheep = new Token(this);
+	protected Token sheep = new Token();
 	
-	protected Token clay = new Token(this);
+	protected Token clay = new Token();
 	
-	protected Token coin = new Token(this);
+	protected Token coin = new Token();
 	
-	protected Token wood = new Token(this);
+	protected Token wood = new Token();
 	
-	protected Token grape = new Token(this);
+	protected Token grape = new Token();
 
-	protected Token stone = new Token(this);
+	protected Token stone = new Token();
 	
-	protected Token joker = new Token(this);
+	protected Token joker = new Token();
 
-	protected Token arm = new Token(this);
+	protected Token arm = new Token();
 	
-	public Wheel(Board game) {
-		this.game = game;
+	public Wheel(Board board) {
+		this.board = board;
 		this.arm.setPosition(M);
 		this.grape.setPosition(H);
 	}
 
-	public Board getGame() {
-		return game;
+	public Board getBoard() {
+		return board;
 	}
 
 	public Token getGrain() {
@@ -103,5 +103,23 @@ public class Wheel {
 		if(stone.getPosition() == next && round > 13) stone.setPosition(stone.getPosition().next());
 		arm.setPosition(next);
 	}
+	
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		Wheel newWheel = (Wheel)super.clone();
+		newWheel.grain = (Token)this.grain.clone();
+		newWheel.peat = (Token)this.peat.clone();
+		newWheel.sheep = (Token)this.sheep.clone();
+		newWheel.clay = (Token)this.clay.clone();
+		newWheel.coin = (Token)this.coin.clone();
+		newWheel.wood = (Token)this.wood.clone();
+		newWheel.grape = (Token)this.grape.clone();
+		newWheel.stone = (Token)this.stone.clone();
+		newWheel.joker = (Token)this.joker.clone();
+		newWheel.arm = (Token)this.arm.clone();
+		return newWheel;
+	}
+	
 	
 }

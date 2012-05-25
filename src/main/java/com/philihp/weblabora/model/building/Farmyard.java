@@ -31,11 +31,11 @@ public class Farmyard extends Building {
 		
 		if(input.getSheep() != 0) {
 			Token token = input.isWithJoker()?wheel.getJoker():wheel.getSheep();
-			player.addSheep(token.take());
+			player.addSheep(token.take(wheel));
 		}
 		else if(input.getGrain() != 0) {
 			Token token = input.isWithJoker()?wheel.getJoker():wheel.getGrain();
-			player.addGrain(token.take());
+			player.addGrain(token.take(wheel));
 		}
 		else {
 			throw new WeblaboraException("Usage of Farmyard must specify if Sheep or Grain is desired.");

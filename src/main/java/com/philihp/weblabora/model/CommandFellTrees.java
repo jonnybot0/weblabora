@@ -37,7 +37,7 @@ public class CommandFellTrees implements MoveCommand, InvalidDuringSettlement {
 
 		spot.setTerrainType(PLAINS);
 		Token token = joker?board.getWheel().getJoker():board.getWheel().getWood();
-		int woodTaken = token.take();
+		int woodTaken = token.take(board.getWheel());
 		player.setWood(player.getWood() + woodTaken);
 
 		System.out.println("Felling trees at " + x + "," + y + "; got wood: "

@@ -21,15 +21,15 @@ import com.philihp.weblabora.model.building.SettlementEnum;
 
 import static com.philihp.weblabora.model.building.BuildingEnum.*;
 
-public class Board {
+public class Board implements Cloneable {
 	
 	public static final int[] PLOT_PURCHASE_PRICE = {3,4,4,5,5,5,6,6,7};
 	
 	public static final int[] DISTRICT_PURCHASE_PRICE = {2,3,4,4,5,5,6,7,8};
 
-	protected final GamePlayers gamePlayers;
+	protected GamePlayers gamePlayers;
 
-	protected final GameType gameType;
+	protected GameType gameType;
 
 	protected Wheel wheel;
 
@@ -60,8 +60,6 @@ public class Board {
 	private boolean gameOver = false;
 	
 	private List<HistoryEntry> moveList = new ArrayList<HistoryEntry>();
-	
-	private State nextState;
 	
 	/**
 	 * This makes lookups from {@link CommandUse CommandUse}
@@ -477,11 +475,49 @@ public class Board {
 		return new Scorecard(this);
 	}
 
-	public State getNextState() {
-		return nextState;
-	}
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		Board newBoard = (Board)super.clone();
+		
+		newBoard.gamePlayers = this.gamePlayers;
+		newBoard.gameType = this.gameType;
+		newBoard.wheel = (Wheel)this.wheel.clone();
+		newBoard.wheel.board = this;
+		
+		/* 
+	protected Wheel wheel;
 
-	public void setNextState(State nextState) {
-		this.nextState = nextState;
+	protected Player[] players;
+
+	private int activePlayer;
+
+	private List<Building> unbuiltBuildings;
+	
+	private int plotsPurchased;
+	
+	private int districtsPurchased;
+	
+	private int startingPlayer;
+	
+	private StartingMarker startingMarker;
+	
+	private int round;
+	
+	private SettlementRound settlementRound;
+
+	private int moveInRound;
+
+	private boolean settling;
+	
+	private boolean extraRound;
+	
+	private boolean gameOver = false;
+	
+	private List<HistoryEntry> moveList = new ArrayList<HistoryEntry>();*/
+		 
+		
+		
+		
+		return newBoard;
 	}
 }

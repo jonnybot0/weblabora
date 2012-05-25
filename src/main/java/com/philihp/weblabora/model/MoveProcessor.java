@@ -19,20 +19,12 @@ public final class MoveProcessor {
 	private MoveProcessor() {
 	}
 	
-	public static void processMoves(Board board, Iterable<State> allMoves, Integer endStateId) throws WeblaboraException {
-		boolean breakNextIteration = false;
+	public static void processMoves(Board board, Iterable<State> allMoves) throws WeblaboraException {
 		for(State state : allMoves) {
-			if(breakNextIteration) {
-				board.setNextState(state);
-				break;
-			}
 			System.out.println("State: "+state.getStateId());
 			board.preMove(state);
 			processActions(board,state.getToken());
 			board.postMove();
-			if(endStateId != null && state.getStateId() == endStateId) {
-				breakNextIteration = true;
-			}
 		}
 	}
 

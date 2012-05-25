@@ -32,24 +32,22 @@ public class ShowGameState extends BaseAction {
 	public ActionForward execute(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request,
 			HttpServletResponse response, User user) throws Exception {
 
-		GameForm form = (GameForm)actionForm;
-		
 		request.setAttribute("myGames", ShowGame.findGamesForUser(user));
 		
 		Game game = (Game)request.getAttribute("game");
 		
-		request.setAttribute("board", prepareBoard(game, form.getStateId()));
+		request.setAttribute("board", prepareBoard(game));
 		request.setAttribute("savedMove", findSavedMove(game, user)); 
 		
 		return mapping.findForward("view");
 	}
 
-	protected static Board prepareBoard(Game game, Integer endState) throws WeblaboraException {
+	protected static Board prepareBoard(Game game) throws WeblaboraException {
 		Board board = null;
 		if(game != null) {
 			board = new Board();
 			board.populateDetails(game);
-			MoveProcessor.processMoves(board, game.getStates(), endState);
+			MoveProcessor.processMoves(board, game.getStates());
 			if(board.isGameOver() == false)
 				board.preMove(new State()); //upkeep stuff before player makes a move	
 		}

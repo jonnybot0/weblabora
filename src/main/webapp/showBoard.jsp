@@ -416,20 +416,8 @@ function requestCallback(response) {
 				<c:when test="${empty move.state}">
 					<b>${move.text}</b>
 				</c:when>
-				<c:when test="${move.state.stateId == 0 and empty board.nextState}">
-					...
-				</c:when>
-				<c:when test="${move.state.stateId == 0 and board.nextState.stateId == game.state.stateId}">
-					[<a href="showGame.do?gameId=${game.gameId}">view</a>] ...
-				</c:when>
 				<c:when test="${move.state.stateId == 0}">
-					[<a href="showGame.do?gameId=${game.gameId}&amp;stateId=${board.nextState.stateId}">view</a>] ...
-				</c:when>
-				<c:when test="${false}">
-					[<a href="showGame.do?gameId=${game.gameId}">view</a>] ...
-				</c:when>
-				<c:when test="${move.state.stateId == param.stateId or move.state.stateId == game.state.stateId}">
-					[view] ${move.text}
+					...
 				</c:when>
 				<c:otherwise>
 					[<a href="showGame.do?gameId=${game.gameId}&amp;stateId=${move.state.stateId}">view</a>] ${move.text}

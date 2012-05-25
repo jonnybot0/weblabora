@@ -53,7 +53,7 @@ public class MakeMove extends BaseAction {
 		} else {
 			
 			Board board = new Board();
-			MoveProcessor.processMoves(board, user.getActiveGame().getStates(),null);
+			MoveProcessor.processMoves(board, user.getActiveGame().getStates());
 			try {
 				if(Arrays.asList(game.getAllUsers()).contains(user) == false)
 					throw new WeblaboraException("User "+user+" is not one of the players in game "+game.getGameId()); 

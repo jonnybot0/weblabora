@@ -35,7 +35,7 @@ public class CommandCutPeat implements MoveCommand, InvalidDuringSettlement {
 
 		spot.setTerrainType(PLAINS);
 		Token token = joker?board.getWheel().getJoker():board.getWheel().getPeat();
-		int peatTaken = token.take();
+		int peatTaken = token.take(board.getWheel());
 		player.setPeat(player.getPeat() + peatTaken);
 
 		System.out.println("Cutting peat at " + x + "," + y + "; got peat: "

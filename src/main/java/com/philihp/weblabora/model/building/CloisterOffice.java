@@ -28,7 +28,7 @@ public class CloisterOffice extends Building {
 		Player player = board.getPlayer(board.getActivePlayer());
 		Wheel wheel = board.getWheel();
 		Token token = input.isWithJoker()?wheel.getJoker():wheel.getCoin();
-		player.addPenny(token.take());
+		player.addPenny(token.take(wheel));
 	}
 	
 	@Override

@@ -4,17 +4,15 @@ import static com.philihp.weblabora.model.Wheel.Position.*;
 
 import com.philihp.weblabora.model.Wheel.Position;
 
-public class Token {
+public class Token implements Cloneable {
 	private Position position;
-	private Wheel wheel;
-	protected Token(Wheel wheel) {
-		this.wheel = wheel;
+	protected Token() {
 		this.position = M;
 	}
 	protected int value() {
 		return 0;
 	}
-	public int take() {
+	public int take(Wheel wheel) {
 		int i = wheel.arm.position.ordinal() - position.ordinal();
 		if(i < 0) i += wheel.armValues.length;
 		position = wheel.arm.position;
@@ -25,5 +23,11 @@ public class Token {
 	}
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		Token newToken = (Token)super.clone();
+		newToken.position = this.position;
+		return newToken;
 	}
 }

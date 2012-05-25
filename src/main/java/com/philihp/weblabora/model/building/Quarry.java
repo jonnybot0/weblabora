@@ -29,6 +29,6 @@ abstract class Quarry extends Building {
 		Wheel wheel = board.getWheel();
 		Token token = input.isWithJoker() ? wheel.getJoker() : wheel
 				.getStone();
-		player.addStone(token.take());
+		player.addStone(token.take(wheel));
 	}
 }
