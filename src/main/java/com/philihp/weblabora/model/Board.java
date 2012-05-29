@@ -21,7 +21,7 @@ import com.philihp.weblabora.model.building.SettlementEnum;
 
 import static com.philihp.weblabora.model.building.BuildingEnum.*;
 
-public class Board implements Cloneable {
+public class Board {
 	
 	public static final int[] PLOT_PURCHASE_PRICE = {3,4,4,5,5,5,6,6,7};
 	
@@ -68,10 +68,47 @@ public class Board implements Cloneable {
 			new EnumMap<BuildingEnum, Building>(BuildingEnum.class);;
 
 	private List<Wonder> unclaimedWonders;
+	
+	/**
+	 * Clones a board, deep-cloning dependent objects
+	 * @param board
+	 */
+	private Board(Board board) {
+		int i;
+		
+		this.gamePlayers = board.gamePlayers;
+		this.gameType = board.gameType;
+		this.wheel = (Wheel)board.wheel.clone();
+		this.wheel.board = this;
+		this.players = new Player[board.players.length];
+		for(i=0;i<this.players.length;i++) {
+			this.players[i] = board.players[i].clone(this);
+		}
+		this.activePlayer = board.activePlayer;
 
-	public Board() {
-		gamePlayers = GamePlayers.FOUR;
-		gameType = GameType.LONG;
+		this.unbuiltBuildings = new ArrayList<Building>(board.unbuiltBuildings.size());
+		for(Building building : board.unbuiltBuildings) {
+			this.unbuiltBuildings.add(building.clone());
+		}
+		
+		this.plotsPurchased = board.plotsPurchased;
+		this.districtsPurchased = board.districtsPurchased;
+		this.startingPlayer = board.startingPlayer;
+		this.startingMarker = board.startingMarker.clone();
+		
+		this.round = board.round;
+		this.settlementRound = board.settlementRound;
+		this.moveInRound = board.moveInRound;
+		this.settling = board.settling;
+		this.extraRound = board.extraRound;
+		this.gameOver = board.gameOver;
+		
+		this.moveList = new ArrayList<HistoryEntry>(board.moveList.size());
+	}
+
+	public Board(GamePlayers gamePlayers, GameType gameType) {
+		this.gamePlayers = gamePlayers;
+		this.gameType = gameType;
 		
 		settlementRound = SettlementRound.S;
 
@@ -475,49 +512,7 @@ public class Board implements Cloneable {
 		return new Scorecard(this);
 	}
 
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		Board newBoard = (Board)super.clone();
-		
-		newBoard.gamePlayers = this.gamePlayers;
-		newBoard.gameType = this.gameType;
-		newBoard.wheel = (Wheel)this.wheel.clone();
-		newBoard.wheel.board = this;
-		
-		/* 
-	protected Wheel wheel;
-
-	protected Player[] players;
-
-	private int activePlayer;
-
-	private List<Building> unbuiltBuildings;
-	
-	private int plotsPurchased;
-	
-	private int districtsPurchased;
-	
-	private int startingPlayer;
-	
-	private StartingMarker startingMarker;
-	
-	private int round;
-	
-	private SettlementRound settlementRound;
-
-	private int moveInRound;
-
-	private boolean settling;
-	
-	private boolean extraRound;
-	
-	private boolean gameOver = false;
-	
-	private List<HistoryEntry> moveList = new ArrayList<HistoryEntry>();*/
-		 
-		
-		
-		
-		return newBoard;
+	public Board clone() {
+		return new Board(this);
 	}
 }

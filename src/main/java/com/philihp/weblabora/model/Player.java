@@ -736,4 +736,10 @@ public class Player {
 	public void setStartingMarker(StartingMarker startingMarker) {
 		this.startingMarker = startingMarker;
 	}
+
+	public Player clone(Board board) {
+		Player newPlayer = new Player(board, this.color);
+		
+		return newPlayer;
+	}
 }

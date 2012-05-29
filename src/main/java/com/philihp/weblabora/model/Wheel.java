@@ -2,7 +2,7 @@ package com.philihp.weblabora.model;
 
 import static com.philihp.weblabora.model.Wheel.Position.*;
 
-public class Wheel implements Cloneable {
+public class Wheel {
 	
 	protected Board board;
 	
@@ -38,6 +38,19 @@ public class Wheel implements Cloneable {
 	protected Token joker = new Token();
 
 	protected Token arm = new Token();
+	
+	private Wheel(Wheel wheel) {
+		this.grain = wheel.grain.clone();
+		this.peat = wheel.peat.clone();
+		this.sheep = wheel.sheep.clone();
+		this.clay = wheel.clay.clone();
+		this.coin = wheel.coin.clone();
+		this.wood = wheel.wood.clone();
+		this.grape = wheel.grape.clone();
+		this.stone = wheel.stone.clone();
+		this.joker = wheel.joker.clone();
+		this.arm = wheel.arm.clone();
+	}
 	
 	public Wheel(Board board) {
 		this.board = board;
@@ -103,23 +116,9 @@ public class Wheel implements Cloneable {
 		if(stone.getPosition() == next && round > 13) stone.setPosition(stone.getPosition().next());
 		arm.setPosition(next);
 	}
-	
 
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		Wheel newWheel = (Wheel)super.clone();
-		newWheel.grain = (Token)this.grain.clone();
-		newWheel.peat = (Token)this.peat.clone();
-		newWheel.sheep = (Token)this.sheep.clone();
-		newWheel.clay = (Token)this.clay.clone();
-		newWheel.coin = (Token)this.coin.clone();
-		newWheel.wood = (Token)this.wood.clone();
-		newWheel.grape = (Token)this.grape.clone();
-		newWheel.stone = (Token)this.stone.clone();
-		newWheel.joker = (Token)this.joker.clone();
-		newWheel.arm = (Token)this.arm.clone();
-		return newWheel;
+	protected Wheel clone() {
+		return new Wheel(this);
 	}
-	
 	
 }

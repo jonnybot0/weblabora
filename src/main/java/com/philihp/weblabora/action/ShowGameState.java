@@ -20,6 +20,8 @@ import com.philihp.weblabora.jpa.Game;
 import com.philihp.weblabora.jpa.State;
 import com.philihp.weblabora.jpa.User;
 import com.philihp.weblabora.model.Board;
+import com.philihp.weblabora.model.GamePlayers;
+import com.philihp.weblabora.model.GameType;
 import com.philihp.weblabora.model.MoveProcessor;
 import com.philihp.weblabora.model.Player;
 import com.philihp.weblabora.model.WeblaboraException;
@@ -45,7 +47,7 @@ public class ShowGameState extends BaseAction {
 	protected static Board prepareBoard(Game game) throws WeblaboraException {
 		Board board = null;
 		if(game != null) {
-			board = new Board();
+			board = new Board(GamePlayers.FOUR, GameType.LONG);
 			board.populateDetails(game);
 			MoveProcessor.processMoves(board, game.getStates());
 			if(board.isGameOver() == false)

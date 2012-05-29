@@ -21,6 +21,8 @@ import com.philihp.weblabora.jpa.Game;
 import com.philihp.weblabora.jpa.State;
 import com.philihp.weblabora.jpa.User;
 import com.philihp.weblabora.model.Board;
+import com.philihp.weblabora.model.GamePlayers;
+import com.philihp.weblabora.model.GameType;
 import com.philihp.weblabora.model.MoveProcessor;
 import com.philihp.weblabora.model.WeblaboraException;
 import com.philihp.weblabora.util.EntityManagerManager;
@@ -52,7 +54,7 @@ public class MakeMove extends BaseAction {
 			game.setState(state);
 		} else {
 			
-			Board board = new Board();
+			Board board = new Board(GamePlayers.FOUR, GameType.LONG);
 			MoveProcessor.processMoves(board, user.getActiveGame().getStates());
 			try {
 				if(Arrays.asList(game.getAllUsers()).contains(user) == false)
